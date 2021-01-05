@@ -250,7 +250,7 @@ class DDR(ModelBase):
         results.update({k: v for k, v in q_rs.items() if v is not None})
         results.update({k: v for k, v in y_rs.items() if v is not None})
         for key in set(rs.keys()) | set(q_rs.keys()) | set(y_rs.keys()):
-            results.setdefault(key, None)
+            results.setdefault(key, rs.get(key))
         results["predictions"] = results["median"]
         return results
 
