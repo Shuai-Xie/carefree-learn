@@ -70,10 +70,10 @@ class DDRLoss(LossBase, LoggingMixinWithRank):
         # median residual anchor
         if is_synthetic:
             syn_cdf_logit_mul = forward_results["syn_cdf_logit_mul"]
-            syn_med_cdf_logit_mul = forward_results["syn_med_cdf_logit_mul"]
-            res_losses = (syn_cdf_logit_mul.abs() - 1.0).abs()
-            med_losses = syn_med_cdf_logit_mul.abs()
-            return {"cdf_anchor": res_losses + med_losses}
+            syn_cdf_logit_add = forward_results["syn_cdf_logit_add"]
+            mul_losses = (syn_cdf_logit_mul.abs() - 1.0).abs()
+            add_losses = syn_cdf_logit_add.abs()
+            return {"cdf_anchor": mul_losses + add_losses}
         # cdf
         y_batch = forward_results["y_batch"]
         cdf_logit = forward_results["cdf_logit"]

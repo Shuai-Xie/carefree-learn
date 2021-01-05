@@ -223,11 +223,10 @@ class DDR(ModelBase):
                     y_syn_batch = torch.where(mask, pos_med_res, -neg_med_res)
                     y_syn_batch = y_syn_batch.detach() + median
                     y_rs = self._cdf(split, y_syn_batch, False, False, False)
-                    y_med_rs = self._cdf(split, median, False, False, False)
                     rs.update(
                         {
                             "syn_cdf_logit_mul": y_rs["cdf_logit_mul"],
-                            "syn_med_cdf_logit_mul": y_med_rs["cdf_logit_mul"],
+                            "syn_cdf_logit_add": y_rs["cdf_logit_add"],
                         }
                     )
                     if not self.fetch_q:
